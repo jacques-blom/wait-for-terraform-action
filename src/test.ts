@@ -4,5 +4,5 @@ wait({
     organization: process.env.ORGANIZATION!,
     workspaces: process.env.WORKSPACES!,
     token: process.env.TOKEN!,
-    waitForApply: Boolean(process.env.WAIT_FOR_APPLY ?? "false"),
+    waitForApply: Boolean(process.env.WAIT_FOR_APPLY ?? "true"),
 }).catch(console.error)

@@ -15,6 +15,7 @@ inputs:
     required: true
   waitForApply:
     description: 'Whether the step should wait for the run to finish applying'
+    default: 'true'
     required: false
 runs:
   using: 'node16'

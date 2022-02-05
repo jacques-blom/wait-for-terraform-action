@@ -30,8 +30,8 @@ steps:
           # A Terraform Cloud team token (instructions below)
           token: ${{secrets.TF_CLOUD_TOKEN}}
           # Whether or not the step should wait for run to be applied
-          # (default: false)
-          waitForApply: true
+          # (default: true)
+          waitForApply: false
 
     - name: Build App
       run: yarn build
