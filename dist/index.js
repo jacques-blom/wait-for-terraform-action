@@ -6087,7 +6087,11 @@ var wait = function (_a) {
                                         latestRun = _b.sent();
                                         if (!latestRun)
                                             return [3 /*break*/, 3];
-                                        if (latestRun.status === "planning") {
+                                        if (latestRun.status === "errored") {
+                                            throw new Error("Latest Terraform run failed for '".concat(workspace, "'"));
+                                        }
+                                        if (latestRun.status === "planning" ||
+                                            latestRun.status === "plan_queued") {
                                             statuses.push({
                                                 workspace: workspace,
                                                 status: latestRun.status,
@@ -6095,7 +6099,7 @@ var wait = function (_a) {
                                             });
                                             return [3 /*break*/, 3];
                                         }
-                                        if (waitForApply) {
+                                        if (waitForApply && latestRun["plan-only"] !== true) {
                                             if (latestRun.status === "planned") {
                                                 if (latestRun["auto-apply"] !== true) {
                                                     statuses.push({
@@ -6113,7 +6117,8 @@ var wait = function (_a) {
                                                 });
                                                 return [3 /*break*/, 3];
                                             }
-                                            if (latestRun.status === "applying") {
+                                            if (latestRun.status === "applying" ||
+                                                latestRun.status === "apply_queued") {
                                                 statuses.push({
                                                     workspace: workspace,
                                                     status: latestRun.status,
