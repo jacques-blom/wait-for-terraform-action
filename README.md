@@ -7,3 +7,7 @@ A GitHub action that waits for Terraform to plan (and apply) before running your
 ```yml
 
 ```
+
+## Token
+
+New Team (workspace access)

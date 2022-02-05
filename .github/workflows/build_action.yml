@@ -23,4 +23,4 @@ jobs:
 
       - run: yarn --ci
 
-      - run: yarn ncc build main.ts --license licenses.txt
+      - run: yarn build
