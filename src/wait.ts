@@ -57,6 +57,12 @@ export const wait = async ({
 
             if (!latestRun) continue
 
+            if (latestRun.status === "errored") {
+                throw new Error(
+                    `Latest Terraform run failed for '${workspace}'`
+                )
+            }
+
             if (
                 latestRun.status === "planning" ||
                 latestRun.status === "plan_queued"
