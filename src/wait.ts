@@ -24,7 +24,7 @@ const getLatestRun = async ({
     }
 
     const latestRunData = await tfAPICall<any>(token, latestRun.links.related)
-    return latestRunData?.attributes
+    return latestRunData
 }
 
 export const wait = async ({
@@ -55,32 +55,33 @@ export const wait = async ({
                 workspace,
             })
 
+            const status = latestRun.attributes.status
+
+            const url = `https://app.terraform.io/app/${organization}/workspaces/${workspace}/runs/${latestRun.id}`
+
             if (!latestRun) continue
 
-            if (latestRun.status === "errored") {
+            if (status === "errored") {
                 throw new Error(
-                    `Latest Terraform run failed for '${workspace}'`
+                    `Latest Terraform run failed for '${workspace}'\n View at: ${url}`
                 )
             }
 
-            if (
-                latestRun.status === "planning" ||
-                latestRun.status === "plan_queued"
-            ) {
+            if (status === "planning" || status === "plan_queued") {
                 statuses.push({
                     workspace,
-                    status: latestRun.status,
+                    status,
                     done: false,
                 })
                 continue
             }
 
             if (waitForApply && latestRun["plan-only"] !== true) {
-                if (latestRun.status === "planned") {
+                if (status === "planned") {
                     if (latestRun["auto-apply"] !== true) {
                         statuses.push({
                             workspace,
-                            status: `${latestRun.status} (⚠️ waiting for you to run apply)`,
+                            status: `${status} (⚠️ waiting for you to run apply)`,
                             done: false,
                             userAction: true,
                         })
@@ -90,20 +91,17 @@ export const wait = async ({
 
                     statuses.push({
                         workspace,
-                        status: latestRun.status,
+                        status,
                         done: false,
                     })
 
                     continue
                 }
 
-                if (
-                    latestRun.status === "applying" ||
-                    latestRun.status === "apply_queued"
-                ) {
+                if (status === "applying" || status === "apply_queued") {
                     statuses.push({
                         workspace,
-                        status: latestRun.status,
+                        status,
                         done: false,
                     })
 
@@ -113,7 +111,7 @@ export const wait = async ({
 
             statuses.push({
                 workspace,
-                status: latestRun.status,
+                status,
                 done: true,
             })
         }

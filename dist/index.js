@@ -6054,7 +6054,7 @@ var getLatestRun = function (_a) {
                     return [4 /*yield*/, tfAPICall(token, latestRun.links.related)];
                 case 2:
                     latestRunData = _c.sent();
-                    return [2 /*return*/, latestRunData === null || latestRunData === void 0 ? void 0 : latestRunData.attributes];
+                    return [2 /*return*/, latestRunData];
             }
         });
     });
@@ -6068,7 +6068,7 @@ var wait = function (_a) {
                 case 0:
                     workspacesArray = workspaces.split(",");
                     return [4 /*yield*/, runUntilTrue(function () { return __awaiter(void 0, void 0, void 0, function () {
-                            var statuses, _i, workspacesArray_1, workspace, latestRun, busyCount, _a, statuses_1, status;
+                            var statuses, _i, workspacesArray_1, workspace, latestRun, status, url, busyCount, _a, statuses_1, status;
                             return __generator(this, function (_b) {
                                 switch (_b.label) {
                                     case 0:
@@ -6085,26 +6085,27 @@ var wait = function (_a) {
                                             })];
                                     case 2:
                                         latestRun = _b.sent();
+                                        status = latestRun.attributes.status;
+                                        url = "https://app.terraform.io/app/".concat(organization, "/workspaces/").concat(workspace, "/runs/").concat(latestRun.id);
                                         if (!latestRun)
                                             return [3 /*break*/, 3];
-                                        if (latestRun.status === "errored") {
-                                            throw new Error("Latest Terraform run failed for '".concat(workspace, "'"));
+                                        if (status === "errored") {
+                                            throw new Error("Latest Terraform run failed for '".concat(workspace, "'\n View at: ").concat(url));
                                         }
-                                        if (latestRun.status === "planning" ||
-                                            latestRun.status === "plan_queued") {
+                                        if (status === "planning" || status === "plan_queued") {
                                             statuses.push({
                                                 workspace: workspace,
-                                                status: latestRun.status,
+                                                status: status,
                                                 done: false,
                                             });
                                             return [3 /*break*/, 3];
                                         }
                                         if (waitForApply && latestRun["plan-only"] !== true) {
-                                            if (latestRun.status === "planned") {
+                                            if (status === "planned") {
                                                 if (latestRun["auto-apply"] !== true) {
                                                     statuses.push({
                                                         workspace: workspace,
-                                                        status: "".concat(latestRun.status, " (\u26A0\uFE0F waiting for you to run apply)"),
+                                                        status: "".concat(status, " (\u26A0\uFE0F waiting for you to run apply)"),
                                                         done: false,
                                                         userAction: true,
                                                     });
@@ -6112,16 +6113,15 @@ var wait = function (_a) {
                                                 }
                                                 statuses.push({
                                                     workspace: workspace,
-                                                    status: latestRun.status,
+                                                    status: status,
                                                     done: false,
                                                 });
                                                 return [3 /*break*/, 3];
                                             }
-                                            if (latestRun.status === "applying" ||
-                                                latestRun.status === "apply_queued") {
+                                            if (status === "applying" || status === "apply_queued") {
                                                 statuses.push({
                                                     workspace: workspace,
-                                                    status: latestRun.status,
+                                                    status: status,
                                                     done: false,
                                                 });
                                                 return [3 /*break*/, 3];
@@ -6129,7 +6129,7 @@ var wait = function (_a) {
                                         }
                                         statuses.push({
                                             workspace: workspace,
-                                            status: latestRun.status,
+                                            status: status,
                                             done: true,
                                         });
                                         _b.label = 3;
