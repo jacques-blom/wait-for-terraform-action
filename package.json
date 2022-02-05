@@ -20,10 +20,13 @@
         "@vercel/ncc": "^0.33.1",
         "dotenv": "^16.0.0",
         "ts-node": "^10.4.0",
-        "typescript": "^4.5.5"
+        "typescript": "^4.5.5",
+        "husky": "^7.0.0"
     },
     "scripts": {
         "build": "ncc build src/main.ts --license licenses.txt",
-        "test": "babel src -d test-build --extensions '.ts' && node -r dotenv/config ./test-build/test.js"
+        "test": "babel src -d test-build --extensions '.ts' && node -r dotenv/config ./test-build/test.js",
+        "prepare": "husky install",
+        "pre-commit": "yarn build"
     }
 }
