@@ -1,0 +1,17 @@
+{
+  "name": "wait-for-terraform-action",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:jacques-blom/wait-for-terraform-action.git",
+  "author": "Jacques Blom <me@jacquesblom.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.15",
+    "@vercel/ncc": "^0.33.1",
+    "typescript": "^4.5.5"
+  }
+}

@@ -1,0 +1,12 @@
+name: 'Wait for Terraform Cloud'
+description: 'Wait for Terraform Cloud plan/apply before continuing'
+inputs:
+  workspaces:
+    description: 'A comma separated list of Terraform Cloud workspaces to wait for'
+    required: true
+  token:
+    description: 'A Terraform Cloud access token'
+    required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
