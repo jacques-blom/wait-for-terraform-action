@@ -1,12 +1,18 @@
 name: 'Wait for Terraform Cloud'
 description: 'Wait for Terraform Cloud plan/apply before continuing'
 inputs:
+  organization:
+    description: 'Your Terraform Cloud organization name'
+    required: true
   workspaces:
     description: 'A comma separated list of Terraform Cloud workspaces to wait for'
     required: true
   token:
     description: 'A Terraform Cloud access token'
     required: true
+  waitForApply:
+    description: 'Whether the step should wait for the run to finish applying'
+    required: false
 runs:
   using: 'node16'
   main: 'dist/index.js'
