@@ -38,7 +38,9 @@ export const wait = async ({
     token: string
     waitForApply?: boolean
 }) => {
-    const workspacesArray = workspaces.split(",")
+    const workspacesArray = workspaces
+        .split(",")
+        .map((workspace) => workspace.trim())
 
     await runUntilTrue(async () => {
         const statuses: {

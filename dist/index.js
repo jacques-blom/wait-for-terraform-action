@@ -6066,7 +6066,9 @@ var wait = function (_a) {
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
-                    workspacesArray = workspaces.split(",");
+                    workspacesArray = workspaces
+                        .split(",")
+                        .map(function (workspace) { return workspace.trim(); });
                     return [4 /*yield*/, runUntilTrue(function () { return __awaiter(void 0, void 0, void 0, function () {
                             var statuses, _i, workspacesArray_1, workspace, latestRun, status, url, busyCount, _a, statuses_1, status;
                             return __generator(this, function (_b) {
