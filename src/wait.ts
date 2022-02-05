@@ -57,7 +57,10 @@ export const wait = async ({
 
             if (!latestRun) continue
 
-            if (latestRun.status === "planning") {
+            if (
+                latestRun.status === "planning" ||
+                latestRun.status === "plan_queued"
+            ) {
                 statuses.push({
                     workspace,
                     status: latestRun.status,
@@ -66,7 +69,7 @@ export const wait = async ({
                 continue
             }
 
-            if (waitForApply) {
+            if (waitForApply && latestRun["plan-only"] !== true) {
                 if (latestRun.status === "planned") {
                     if (latestRun["auto-apply"] !== true) {
                         statuses.push({
@@ -88,7 +91,10 @@ export const wait = async ({
                     continue
                 }
 
-                if (latestRun.status === "applying") {
+                if (
+                    latestRun.status === "applying" ||
+                    latestRun.status === "apply_queued"
+                ) {
                     statuses.push({
                         workspace,
                         status: latestRun.status,
