@@ -26,7 +26,6 @@
     "scripts": {
         "build": "ncc build src/main.ts --license licenses.txt",
         "test": "babel src -d test-build --extensions '.ts' && node -r dotenv/config ./test-build/test.js",
-        "prepare": "husky install",
-        "pre-commit": "yarn build"
+        "prepare": "husky install"
     }
 }
