@@ -1,5 +1,8 @@
 name: 'Wait for Terraform Cloud'
 description: 'Wait for Terraform Cloud plan/apply before continuing'
+branding:
+  icon: loader
+  color: purple
 inputs:
   organization:
     description: 'Your Terraform Cloud organization name'
