@@ -8517,13 +8517,13 @@ __nccwpck_require__.r(__webpack_exports__);
 
 
 try {
-    var workspaces = _actions_core__WEBPACK_IMPORTED_MODULE_0___default().getInput("workspaces");
+    var workspaces = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("workspaces");
     console.log("workspaces to check: ".concat(workspaces, "!"));
-    var payload = JSON.stringify((_actions_github__WEBPACK_IMPORTED_MODULE_1___default().context.payload), undefined, 2);
+    var payload = JSON.stringify(_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload, undefined, 2);
     console.log("The event payload: ".concat(payload));
 }
 catch (error) {
-    _actions_core__WEBPACK_IMPORTED_MODULE_0___default().setFailed(error.message);
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);
 }
 
 })();
