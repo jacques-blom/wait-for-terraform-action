@@ -6105,7 +6105,7 @@ var wait = function (_a) {
                                                 if (latestRun["auto-apply"] !== true) {
                                                     statuses.push({
                                                         workspace: workspace,
-                                                        status: "".concat(status, " (\u26A0\uFE0F waiting for you to run apply)"),
+                                                        status: "".concat(status, " (\u26A0\uFE0F waiting for you to run apply at ").concat(url, ")"),
                                                         done: false,
                                                         userAction: true,
                                                     });

@@ -81,7 +81,7 @@ export const wait = async ({
                     if (latestRun["auto-apply"] !== true) {
                         statuses.push({
                             workspace,
-                            status: `${status} (⚠️ waiting for you to run apply)`,
+                            status: `${status} (⚠️ waiting for you to run apply at ${url})`,
                             done: false,
                             userAction: true,
                         })
